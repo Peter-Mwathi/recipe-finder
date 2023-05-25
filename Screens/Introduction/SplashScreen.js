@@ -1,33 +1,34 @@
 import { StatusBar, Animated, Text, Image, View, StyleSheet, Dimensions, FlatList } from 'react-native';
 import * as React from 'react'
-import { TouchableOpacity } from 'react-native-gesture-handler';
-const {width, height} = Dimensions.get('screen'); 
+import { SplashImages } from '../../assets/images/splash';
 
-const bgs = ['orange', '#DDBEFE', '#FF63ED', '#B98EFF'];
+
+const {width, height} = Dimensions.get('screen');
+const bgs = ['#ED2B2A', '#F79327', '#2b772b', '#1b591b'];
 const DATA = [
   {
     "key": "3571572",
     "title": "Multi-lateral intermediate moratorium",
     "description": "I'll back up the multi-byte XSS matrix, that should feed the SCSI application!",
-    "image": "https://www.wallpaperflare.com/static/211/4/925/food-burgers-burger-white-background-wallpaper.jpg"
+    "image": SplashImages.red
   },
   {
     "key": "3571747",
     "title": "Automated radical data-warehouse",
     "description": "Use the optical SAS system, then you can navigate the auxiliary alarm!",
-    "image": "https://cdn-icons-png.flaticon.com/128/3571/3571665.png"
+    "image": SplashImages.orange
   },
   {
     "key": "3571680",
     "title": "Inverse attitude-oriented system engine",
     "description": "The ADP array is down, compress the online sensor so we can input the HTTP panel!",
-    "image": "https://cdn-icons-png.flaticon.com/128/3571/3571970.png"
+    "image": SplashImages.green
   },
   {
     "key": "3571603",
     "title": "Monitored global data-warehouse",
     "description": "We need to program the open-source IB interface!",
-    "image": "https://cdn-icons-png.flaticon.com/128/3571/3571963.png"
+    "image": SplashImages.deepGreen
   }
 ]
 
@@ -64,7 +65,7 @@ const SplashScreen = () => {
               height: 10,
               width: 10, 
               borderRadius: 5,
-              margin:10,
+              margin:6,
               backgroundColor: "#fff",
               opacity,
               transform: [
@@ -145,8 +146,8 @@ const SplashScreen = () => {
             <View style={{width: width, justifyContent: "center", alignItems:"center", padding: 20}}>
               <View style={{flex: 0.7, justifyContent: "center" }}>
                 <Image 
-                source={{uri: item.image}}
-                style={{width: width, height: width/2, resizeMode: 'contain'}}
+                source={item.image}
+                style={{width: width, height: width/1.6, resizeMode: 'contain', marginBottom: 50}}
                 />
               </View>
               <View style={{flex: 0.3}}>
