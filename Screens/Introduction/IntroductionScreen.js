@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, ActivityIndicator } from 'react-native'
-import { COLORS, FONTS } from '../../constant/theme'
+import { COLORS, FONTS } from '../../constants/theme'
 import React, { useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -31,7 +31,8 @@ const IntroductionScreen = ({ navigation }) => {
 
         // go to home is progress is home
         case "Home":
-        //  console.log("Go to home");
+          navigation.replace("Home");
+          break;
 
         // the default redirect is login
         default:

@@ -1,16 +1,25 @@
 import { StatusBar, Animated, Text, Image, View, StyleSheet, Dimensions, FlatList } from 'react-native';
 import * as React from 'react'
 import { SplashImages } from '../../assets/images/splash';
-
+import CustomButtonWhite from '../../components/buttons/CustomButtonWhite';
+import FlashMessage from 'react-native-flash-message';
+import customFunctions from '../../functions/CustomFunctions';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const {width, height} = Dimensions.get('screen');
-const bgs = ['#ED2B2A', '#F79327', '#2b772b', '#1b591b'];
+const bgs = ['#1b591b', '#2b772b', '#F79327', '#ED2B2A'];
 const DATA = [
   {
-    "key": "3571572",
-    "title": "Multi-lateral intermediate moratorium",
-    "description": "I'll back up the multi-byte XSS matrix, that should feed the SCSI application!",
-    "image": SplashImages.red
+    "key": "3571603",
+    "title": "Monitored global data-warehouse",
+    "description": "We need to program the open-source IB interface!",
+    "image": SplashImages.green
+  },
+  {
+    "key": "3571680",
+    "title": "Inverse attitude-oriented system engine",
+    "description": "The ADP array is down, compress the online sensor so we can input the HTTP panel!",
+    "image": SplashImages.deepGreen
   },
   {
     "key": "3571747",
@@ -18,29 +27,26 @@ const DATA = [
     "description": "Use the optical SAS system, then you can navigate the auxiliary alarm!",
     "image": SplashImages.orange
   },
+
   {
-    "key": "3571680",
-    "title": "Inverse attitude-oriented system engine",
-    "description": "The ADP array is down, compress the online sensor so we can input the HTTP panel!",
-    "image": SplashImages.green
+    "key": "3571572",
+    "title": "Multi-lateral intermediate moratorium",
+    "description": "I'll back up the multi-byte XSS matrix, that should feed the SCSI application!",
+    "image": SplashImages.red
   },
-  {
-    "key": "3571603",
-    "title": "Monitored global data-warehouse",
-    "description": "We need to program the open-source IB interface!",
-    "image": SplashImages.deepGreen
-  }
+ 
 ]
 
+// export the splash screen 
+const SplashScreen = ({navigation}) => {
 
-const SplashScreen = () => {
-
+  // this will track the current slide 
   const scrollX = React.useRef(new Animated.Value(0)).current;
 
   // indicator buttons 
   const Indicator = ({scrollX}) => {
     return (
-      <View style={{position: 'absolute', bottom: 100, flexDirection: 'row'}}>
+      <View style={{position: 'absolute', bottom: 150, flexDirection: 'row'}}>
         {DATA.map((_, i)=>{
 
         // input range 
@@ -125,6 +131,22 @@ const SplashScreen = () => {
     )
   }
 
+  // get started activity button 
+  const triggerGetStarted = async () => {
+    const setSplashViewed = {
+      progressStatus: "Home",
+      userData: {},
+    };
+    try {
+      await AsyncStorage.setItem(
+        "isSplashViewed",
+        JSON.stringify(setSplashViewed)
+      );
+      navigation.replace("Home");
+    } catch (e) {
+      customFunctions.showAlertMessage("danger", "An error occurred", `The following error has occurred: ${e.message}`)
+    }
+  }
 
   // return main body 
   return (
@@ -158,8 +180,9 @@ const SplashScreen = () => {
           )
         }}
       />
-
       <Indicator scrollX={scrollX}/>
+      <CustomButtonWhite onClickFunction={triggerGetStarted} title="Get started now" />
+      <FlashMessage position="top"/>
     </View>
   )
 }
@@ -172,4 +195,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  popStyle: {
+    paddingTop: 40
+  }
 })

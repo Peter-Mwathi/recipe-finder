@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View } from 'react-native';
 
 // import screens 
-import {SplashScreen, Login, IntroductionScreen} from './Screens'
+import {SplashScreen, Login, IntroductionScreen, HomeScreen} from './Screens'
 
 // import navigation packages, Fonts, and Splash screen
 import { NavigationContainer } from '@react-navigation/native';
@@ -41,16 +41,29 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
+
+        {/* the main screen  */}
         <Stack.Screen
           options={{ headerShown: false }}
           name="Introduction"
           component={IntroductionScreen}
         ></Stack.Screen>
+
+        {/* splash screen  */}
         <Stack.Screen
           options={{ headerShown: false }}
           name="SplashScreen"
           component={SplashScreen}
         ></Stack.Screen>
+
+        {/* home screen  */}
+         <Stack.Screen
+          options={{ headerShown: false }}
+          name="Home"
+          component={HomeScreen}
+        ></Stack.Screen>
+
+
       </Stack.Navigator>
     </NavigationContainer>
   );
