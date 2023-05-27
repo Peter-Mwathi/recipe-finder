@@ -11,27 +11,27 @@ const bgs = ['#1b591b', '#2b772b', '#F79327', '#ED2B2A'];
 const DATA = [
   {
     "key": "3571603",
-    "title": "Monitored global data-warehouse",
-    "description": "We need to program the open-source IB interface!",
+    "title": "Vast Recipe Collection",
+    "description": "Search through over +100,000 recipes. You  can find a diverse range of culinary options, from traditional favorites to international cuisines.",
     "image": SplashImages.green
   },
   {
     "key": "3571680",
-    "title": "Inverse attitude-oriented system engine",
-    "description": "The ADP array is down, compress the online sensor so we can input the HTTP panel!",
+    "title": "Intelligent Natural Language Searching",
+    "description": "Effortlessly find recipes by simply describing the ingredients you have or the type of dish you desire. Save time and effort in the search for the perfect recipe.",
     "image": SplashImages.deepGreen
   },
   {
     "key": "3571747",
-    "title": "Automated radical data-warehouse",
-    "description": "Use the optical SAS system, then you can navigate the auxiliary alarm!",
+    "title": "Personalized Recommendations",
+    "description": "We provide personalized recipe recommendations based on your preferences and past interactions. We analyze your culinary interest to match your preferred taste.",
     "image": SplashImages.orange
   },
 
   {
     "key": "3571572",
-    "title": "Multi-lateral intermediate moratorium",
-    "description": "I'll back up the multi-byte XSS matrix, that should feed the SCSI application!",
+    "title": "Interactive Cooking Experience",
+    "description": "With our app, it's not just about finding recipes; it's about becoming part of a thriving community that shares a passion for cooking and exploring new flavors.",
     "image": SplashImages.red
   },
  
@@ -173,8 +173,8 @@ const SplashScreen = ({navigation}) => {
                 />
               </View>
               <View style={{flex: 0.3}}>
-                <Text style={{fontWeight: "800", fontSize: 24, marginBottom: 10, color: 'white', textAlign: "center"}}>{item.title}</Text>
-                <Text style={{fontWeight: '300', color: 'white', textAlign: "center"}}>{item.description}</Text>
+                <Text className="text-white mb-2 font-extrabold text-2xl text-center">{item.title}</Text>
+                <Text className="text-center text-white text-base font-normal">{item.description}</Text>
               </View>
             </View>
           )
