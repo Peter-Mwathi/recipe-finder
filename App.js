@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View } from 'react-native';
 
 // import screens 
-import {SplashScreen, Login, IntroductionScreen, HomeScreen} from './Screens'
+import {SplashScreen, Login, IntroductionScreen, HomeScreen, Account} from './Screens'
 
 // import navigation packages, Fonts, and Splash screen
 import { NavigationContainer } from '@react-navigation/native';
@@ -63,6 +63,12 @@ export default function App() {
           component={HomeScreen}
         ></Stack.Screen>
 
+        {/* home screen  */}
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name="Profile"
+          component={Account}
+        ></Stack.Screen>
 
       </Stack.Navigator>
     </NavigationContainer>
