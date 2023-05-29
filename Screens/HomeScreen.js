@@ -1,12 +1,11 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
+import BottomTabNavigator from '../navigation/bottom'
 
 // return home screen 
-const HomeScreen = () => {
+const HomeScreen = ({navigation}) => {
   return (
-    <View className="flex-1 justify-center items-center">
-       <Text className="font-extrabold">This is the home page </Text>
-    </View>
+    <BottomTabNavigator/>
   )
 }
 
