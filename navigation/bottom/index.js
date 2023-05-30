@@ -6,7 +6,8 @@ import FontAwesome5 from "react-native-vector-icons/FontAwesome5"
 import FontAwesome from "react-native-vector-icons/FontAwesome"
 import Feather from "react-native-vector-icons/Feather"
 import Entypo  from "react-native-vector-icons/Entypo"
-import {CustomRegularText} from "../../components/texts/CustomTexts"
+import { COLORS } from "../../constants/theme";
+
 
 // import Screens here 
 import Account from "./Account";
@@ -57,10 +58,10 @@ const BottomTabNavigator = () => {
             },
             headerShown: false,
             tabBarLabel: ({ focused }) => {
-                return <Text style={{fontSize: 14, fontWeight: '600', color: focused ? "black": "gray"}}>{route.name}</Text>
+                return <Text style={{fontSize: 14, fontWeight: '600', color: focused ? COLORS.defaultGreen: "gray"}}>{route.name}</Text>
               },
             tabBarInactiveTintColor: "gray",
-            tabBarActiveTintColor:"black",
+            tabBarActiveTintColor: COLORS.defaultGreen,
             tabBarLabelStyle: {
                 textTransform: "uppercase"
             },

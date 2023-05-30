@@ -14,7 +14,7 @@ const CustomRegularText = (props) => {
 const CustomBoldText = (props) => {
     return (
       <View>
-        <Text className={props.styles} style={[styles.boldText, {fontSize: props.size}]}>{props.title}</Text>
+        <Text className={props.styles} style={[styles.boldText, props.customStyles, {fontSize: props.size}]}>{props.title}</Text>
       </View>
     )
   }
