@@ -14,7 +14,7 @@ const CustomRegularText = (props) => {
 const CustomBoldText = (props) => {
     return (
       <View>
-        <Text>Custom bold text </Text>
+        <Text className={props.styles} style={[styles.boldText, {fontSize: props.size}]}>{props.title}</Text>
       </View>
     )
   }
@@ -22,6 +22,7 @@ const CustomBoldText = (props) => {
 // export both custom regular and bold text 
 export  {CustomRegularText, CustomBoldText}
 const styles = StyleSheet.create({
-    regularText: {},
-    boldText: {}
+    boldText: {
+      fontWeight: 800
+    }
 })

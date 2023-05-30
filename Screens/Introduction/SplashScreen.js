@@ -148,7 +148,7 @@ const SplashScreen = ({navigation}) => {
     }
   }
 
-  // return main body 
+  // return main body   
   return (
     <View style={styles.container}>
       <Backdrop scrollX={scrollX}/>

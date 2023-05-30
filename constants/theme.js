@@ -10,6 +10,7 @@ export const COLORS = {
   darkBorder: "#e5e5e5",
   icons: "#05375a",
   grey: "grey",
+  defaultGreen: "#5D9C59"
 };
 
 export const SIZES = {
