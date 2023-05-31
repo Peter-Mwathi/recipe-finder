@@ -7,6 +7,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 import { CustomBoldText, CustomRegularText } from "../../components/texts/CustomTexts";
 import TopFlatlistItem from "../../components/explore/TopFlatlistItem";
 import { TopHomeNavigationStatements } from "./data/Statements";
+import ShimmerHomeProgress from "../../components/progress/ShimmerHomeProgress";
 
 
 const Explore = ({navigation}) => {
@@ -22,7 +23,7 @@ const Explore = ({navigation}) => {
   // get first object 
   const extractRecipesData = Recipes[Object.keys(Recipes)[1]]
   const firstObject = Object.values(extractRecipesData)[6]
-  const firstRecipeSlideItems = Object.values(extractRecipesData).slice(17,23)
+  const firstRecipeSlideItems = Object.values(extractRecipesData).slice(17, 34)
 
   // navigate to search page 
   const navigateToSearch = (navigation) => {
@@ -119,10 +120,11 @@ const Explore = ({navigation}) => {
             </View>
 
           </View>
+          
         </ScrollView>
         
         
-
+        
     </View>
     
   )
