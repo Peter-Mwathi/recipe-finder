@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { StyleSheet, Animated, ScrollView, View, TouchableOpacity} from 'react-native'
 import * as React from 'react'
 import Recipes from './data/Recipes'
@@ -7,7 +7,12 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 import { CustomBoldText, CustomRegularText } from "../../components/texts/CustomTexts";
 import TopFlatlistItem from "../../components/explore/TopFlatlistItem";
 import { TopHomeNavigationStatements } from "./data/Statements";
+import customFunctions from "../../functions/CustomFunctions";
 import ShimmerHomeProgress from "../../components/progress/ShimmerHomeProgress";
+
+
+ // get first object 
+ const sixRecipeDataItems = Recipes.recipeData
 
 
 const Explore = ({navigation}) => {
@@ -19,11 +24,9 @@ const Explore = ({navigation}) => {
   const [recipesCount, setRecipesCount] = useState(0)
   const [isFetching, setIsFetching] = useState(true)
   const [recipeList, setRecipesList] = useState({})
+  const [loadRecipesError, setLoadRecipesError] = useState(false)
+  const [firstRecipeSlideItems, setFirstRecipeSlideItems] =  useState([])
 
-  // get first object 
-  const extractRecipesData = Recipes[Object.keys(Recipes)[1]]
-  const firstObject = Object.values(extractRecipesData)[6]
-  const firstRecipeSlideItems = Object.values(extractRecipesData).slice(17, 34)
 
   // navigate to search page 
   const navigateToSearch = (navigation) => {
@@ -66,6 +69,49 @@ const Explore = ({navigation}) => {
     )
   }
 
+  // get and set recipe items 
+  const getAndSetRecipeItems = () => {
+
+    // reset the recipe error 
+    setLoadRecipesError(false)
+
+    // create form data to carry post items 
+    let formData = new FormData();
+    formData.append("query", "milk");
+    const requestUrl = "https://nursinggator.com/recipe/recipe.json";
+
+    // create request options 
+    let requestOptions = { method: 'POST', body: formData, redirect: 'follow'};
+
+
+    //get recipe data with fetch  -->
+    fetch(requestUrl, requestOptions)
+    .then(response => response.text())
+    // .then(result => console.log(JSON.parse(result).status.message))
+    .then(result => {
+
+      // get data from the response 
+      const response  = JSON.parse(result)
+      const status = response.status.status
+      const message = response.status.message
+      const data = response.recipeData
+      setFirstRecipeSlideItems(Object.values(data).slice(-6))
+
+    })
+    .catch((error) => {
+      setLoadRecipesError(true)
+    })
+    .finally(()=>{
+      setIsFetching(false)
+    });
+    
+  }
+
+  // call this method when the app loads for the first time 
+  useEffect(() => {
+    getAndSetRecipeItems()
+  },[])
+
   return (
     <View className="bg-white">
 
@@ -91,40 +137,43 @@ const Explore = ({navigation}) => {
           </TouchableOpacity>
         </View>
 
-
         {/* main scrollView  */}
-        <ScrollView className="h-full w-full pt-2">
-          {/* loaded after getting content  */}
-          <View className="flex-1 justify-center mb-11 items-center">
+        <ScrollView className="h-full w-full pt-1">
 
+        
+        {!isFetching ?
+          <View>
+              <View className="flex-1 justify-center mb-11 items-center">
 
-            {/* Explore item | Slide flat list */}
-            <View className="mt-5">
-              <Animated.FlatList
-                data = {firstRecipeSlideItems}
-                horizontal
-                showsHorizontalScrollIndicator={false}
-                scrollEventThrottle={32}
-                pagingEnabled
-                onScroll={Animated.event(
-                  [{nativeEvent: {contentOffset: {x: scrollX}}}], {useNativeDriver: false}
-                )}
-                keyExtractor={item=> item.id}
-                renderItem={({item, index}) => {
-                  return (
-                    <TopFlatlistItem description={TopHomeNavigationStatements[index]} item={item}/>
-                  )
-                }}
-              />
-            <TopRecipeListIndicator scrollX={scrollX}/>
-            </View>
+                {/* Explore item | Slide flat list */}
+                <View className="mt-4">
+                  <Animated.FlatList
+                    data = {firstRecipeSlideItems}
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
+                    scrollEventThrottle={32}
+                    pagingEnabled
+                    onScroll={Animated.event(
+                      [{nativeEvent: {contentOffset: {x: scrollX}}}], {useNativeDriver: false}
+                    )}
+                    keyExtractor={item=> item.id}
+                    renderItem={({item, index}) => {
+                      return (
+                        <TopFlatlistItem description={TopHomeNavigationStatements[index]} item={item}/>
+                      )
+                    }}
+                  />
+                <TopRecipeListIndicator scrollX={scrollX}/>
+                </View>
+              </View>
+            </View>: 
 
-          </View>
+            // when the explore page is loading 
+            <ShimmerHomeProgress/>
+          }
           
         </ScrollView>
-        
-        
-        
+
     </View>
     
   )
