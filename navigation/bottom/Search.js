@@ -1,10 +1,15 @@
 import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import React, {useState, useEffect }from 'react'
 
-const Search = () => {
+const Search = ({route, navigation}) => {
+
+  const {searchQuery} = route.params
+  const [hasSearch, setHasSearch] = useState(false)
+  const [isSearching, setIsSearching] = useState(false)
+
   return (
-    <View>
-      <Text>Search</Text>
+    <View className="flex-1 justify-center items-center">
+      <Text>{searchQuery}</Text>
     </View>
   )
 }

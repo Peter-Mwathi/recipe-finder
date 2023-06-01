@@ -15,7 +15,6 @@ import * as expoSplashScreen from "expo-splash-screen";
 // Global variables 
 const Stack = createNativeStackNavigator();
 
-
 // export the main component 
 export default function App() {
   const [fontsLoaded] = useFonts({

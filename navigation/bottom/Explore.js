@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { StyleSheet, Animated, ScrollView, View, TouchableOpacity} from 'react-native'
+import { StyleSheet, Animated, ScrollView, View, TouchableOpacity, FlatList, Text} from 'react-native'
 import * as React from 'react'
 import Recipes from './data/Recipes'
 import { SIZES, COLORS } from '../../constants/theme'
@@ -8,8 +8,17 @@ import { CustomBoldText, CustomRegularText } from "../../components/texts/Custom
 import TopFlatlistItem from "../../components/explore/TopFlatlistItem";
 import { TopHomeNavigationStatements } from "./data/Statements";
 import ShimmerHomeProgress from "../../components/progress/ShimmerHomeProgress";
-import RandomRecipe from './data/Keywords'
 
+// import favorites item to go below the first section 
+import FavoriteItem from "../../components/explore/FavoritesItem"
+
+
+// import data 
+import RandomRecipe from './data/Keywords' 
+import FavoritesItems from "../../assets/images/favorites/Favorites"; 
+
+
+// explore home content 
 const Explore = ({navigation}) => {
 
   // this will track the current slide 
@@ -24,8 +33,10 @@ const Explore = ({navigation}) => {
 
 
   // navigate to search page 
-  const navigateToSearch = (navigation) => {
-    navigation.navigate("Search")
+  const navigateToSearch = (navigation, searchQuery) => {
+    navigation.navigate("Search", {
+      searchQuery
+    })
   }
 
 
@@ -73,7 +84,7 @@ const Explore = ({navigation}) => {
     // create form data to carry post items 
     let formData = new FormData();
     formData.append("query", RandomRecipe);
-    formData.append("count", "2");
+    formData.append("count", "5");
     const requestUrl = "https://nursinggator.com/recipe/recipe.json";
     // const requestUrl = "https://recipe-scrap.vercel.app/Ii8LhnECbHEMXZWFReHh";
 
@@ -119,7 +130,7 @@ const Explore = ({navigation}) => {
           
           {/* the search bar on the right  */}
           <TouchableOpacity 
-            onPress={()=> navigateToSearch(navigation)}
+            onPress={()=> navigateToSearch(navigation, "")}
             activeOpacity={0.8} 
             className="grow flex-row items-center justify-start px-4 ml-4"
             style={{
@@ -140,10 +151,10 @@ const Explore = ({navigation}) => {
         
         {!isFetching ?
           <View>
-              <View className="flex-1 justify-center mb-11 items-center">
+              <View className="flex-1 justify-center mb-7 items-center">
 
                 {/* Explore item | Slide flat list */}
-                <View className="pt-4 bg-white pb-2 rounded-sm">
+                <View className="pt-4 bg-white pb-2 rounded-xl">
                   <Animated.FlatList
                     data = {firstRecipeSlideItems}
                     horizontal
@@ -162,6 +173,31 @@ const Explore = ({navigation}) => {
                   />
                 <TopRecipeListIndicator scrollX={scrollX}/>
                 </View>
+              </View>
+
+              {/* favorites section  */}
+              <View className="bg-white py-6 px-4 rounded-xl">
+
+                {/* Favorites header  */}
+                <View className="mb-4 flex-row justify-between">
+                  <CustomBoldText className="text-slate-800 font-bold" size={20} title="Favorites collection"/>
+                  <TouchableOpacity onPress={()=> navigateToSearch(navigation, "") } activeOpacity={0.4} className="bg-slate-200 p-3 rounded-full">
+                    <CustomRegularText title="Search more"/>
+                  </TouchableOpacity>
+                 
+                </View>
+
+                {/* favorites items  */}
+                <FlatList
+                    horizontal
+                    data={FavoritesItems}
+                    keyExtractor={item => item.id}
+                    renderItem={({item, index}) => {
+                      return (
+                        <FavoriteItem navMethod={navigateToSearch} navigation={navigation} item={item}/>
+                      )
+                    }}
+                  />
               </View>
             </View>: 
 

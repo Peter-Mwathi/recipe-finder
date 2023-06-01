@@ -5,7 +5,7 @@ import React from 'react'
 const CustomRegularText = (props) => {
   return (
     <View>
-      <Text style={{fontSize: props.size}} className={props.styles}>{props.title}</Text>
+      <Text style={[{fontSize: props.size}, styles.regularText, props.customStyles]} className={props.styles}>{props.title}</Text>
     </View>
   )
 }
@@ -24,5 +24,8 @@ export  {CustomRegularText, CustomBoldText}
 const styles = StyleSheet.create({
     boldText: {
       fontWeight: 800
+    },
+    regularText: {
+
     }
 })
