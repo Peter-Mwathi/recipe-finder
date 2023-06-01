@@ -19,17 +19,10 @@ const CustomImage = ({imageUrl, placeholder, defaultImage, styles, style}) => {
         checkImageStatus()
     },[imageFailed])
 
-    // load first after the page has loaded 
-    useEffect(()=>{
-        setImage(placeholder)
-    },[])
-
-
     return (
         <Image  
             source={image}
             style={style}
-            onLoadEnd={()=> checkImageStatus()}
             onError={()=> setIMageFailed(true)}
             className={styles}
         />

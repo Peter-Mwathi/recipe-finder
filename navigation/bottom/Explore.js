@@ -7,13 +7,8 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 import { CustomBoldText, CustomRegularText } from "../../components/texts/CustomTexts";
 import TopFlatlistItem from "../../components/explore/TopFlatlistItem";
 import { TopHomeNavigationStatements } from "./data/Statements";
-import customFunctions from "../../functions/CustomFunctions";
 import ShimmerHomeProgress from "../../components/progress/ShimmerHomeProgress";
-
-
- // get first object 
- const sixRecipeDataItems = Recipes.recipeData
-
+import RandomRecipe from './data/Keywords'
 
 const Explore = ({navigation}) => {
 
@@ -77,8 +72,10 @@ const Explore = ({navigation}) => {
 
     // create form data to carry post items 
     let formData = new FormData();
-    formData.append("query", "milk");
+    formData.append("query", RandomRecipe);
+    formData.append("count", "2");
     const requestUrl = "https://nursinggator.com/recipe/recipe.json";
+    // const requestUrl = "https://recipe-scrap.vercel.app/Ii8LhnECbHEMXZWFReHh";
 
     // create request options 
     let requestOptions = { method: 'POST', body: formData, redirect: 'follow'};
@@ -113,7 +110,7 @@ const Explore = ({navigation}) => {
   },[])
 
   return (
-    <View className="bg-white">
+    <View className="bg-slate-50">
 
         {/* explore page header  */}
         <View className="flex-row justify-center items-center pt-16 pb-3 px-4" style={styles.topNavigationBar}>
@@ -146,7 +143,7 @@ const Explore = ({navigation}) => {
               <View className="flex-1 justify-center mb-11 items-center">
 
                 {/* Explore item | Slide flat list */}
-                <View className="mt-4">
+                <View className="pt-4 bg-white pb-2 rounded-sm">
                   <Animated.FlatList
                     data = {firstRecipeSlideItems}
                     horizontal

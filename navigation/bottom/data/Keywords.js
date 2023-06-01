@@ -99,5 +99,6 @@ const recipeKeywords = [
     'Cheesecake',
     // Rest of the terms...
   ];
-  
-export default recipeKeywords
+
+const RandomRecipe = recipeKeywords[Math.floor(Math.random()*recipeKeywords.length)];
+export default RandomRecipe

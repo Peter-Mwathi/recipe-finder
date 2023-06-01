@@ -16,9 +16,33 @@ const showAlertMessage = (type, title, message) => {
     });
 }
 
+// get the current meal time 
+const getCurrentMeal = () => {
+    const today = new Date()
+    const curHr = today.getHours()
+    let currentMeal = null;
+
+    // check if the current hours is above 12 
+    if (curHr < 12) {
+        currentMeal = "breakfast recipe";
+    }
+    
+    // return lunch recipes 
+    else if (curHr < 18) {
+        currentMeal = "lunch recipe";
+    }
+
+    // return dinner recipe 
+    else {
+        currentMeal = "dinner recipe";
+    }
+    return currentMeal
+}
+
+
 // put all functions into one place 
-const customFunctions = {showAlertMessage} 
-export default customFunctions
+const CustomFunctions = {showAlertMessage, getCurrentMeal} 
+export default CustomFunctions
 
 // alert message styles 
 const styles = StyleSheet.create({
