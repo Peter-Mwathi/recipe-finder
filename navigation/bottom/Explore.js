@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { StyleSheet, Animated, ScrollView, View, TouchableOpacity, FlatList, Text} from 'react-native'
+import { StyleSheet, Animated, ScrollView, View, TouchableOpacity, FlatList, Image, Text} from 'react-native'
 import * as React from 'react'
 import Recipes from './data/Recipes'
 import { SIZES, COLORS } from '../../constants/theme'
@@ -8,6 +8,8 @@ import { CustomBoldText, CustomRegularText } from "../../components/texts/Custom
 import TopFlatlistItem from "../../components/explore/TopFlatlistItem";
 import { TopHomeNavigationStatements } from "./data/Statements";
 import ShimmerHomeProgress from "../../components/progress/ShimmerHomeProgress";
+import SelectTime from "../../components/explore/SelectTime";
+import SectionHeader from "../../components/explore/SectionHeader";
 
 // import favorites item to go below the first section 
 import FavoriteItem from "../../components/explore/FavoritesItem"
@@ -16,6 +18,7 @@ import FavoriteItem from "../../components/explore/FavoritesItem"
 // import data 
 import RandomRecipe from './data/Keywords' 
 import FavoritesItems from "../../assets/images/favorites/Favorites"; 
+import MealTime from "./data/Time"
 
 
 // explore home content 
@@ -85,8 +88,8 @@ const Explore = ({navigation}) => {
     let formData = new FormData();
     formData.append("query", RandomRecipe);
     formData.append("count", "5");
-    const requestUrl = "https://nursinggator.com/recipe/recipe.json";
-    // const requestUrl = "https://recipe-scrap.vercel.app/Ii8LhnECbHEMXZWFReHh";
+    // const requestUrl = "https://nursinggator.com/recipe/recipe.json";
+    const requestUrl = "https://recipe-scrap.vercel.app/Ii8LhnECbHEMXZWFReHh";
 
     // create request options 
     let requestOptions = { method: 'POST', body: formData, redirect: 'follow'};
@@ -151,9 +154,9 @@ const Explore = ({navigation}) => {
         
         {!isFetching ?
           <View>
-              <View className="flex-1 justify-center mb-7 items-center">
 
-                {/* Explore item | Slide flat list */}
+              {/* Explore item | Slide flat list */}
+              <View className="flex-1 justify-center mb-7 items-center">
                 <View className="pt-4 bg-white pb-2 rounded-xl">
                   <Animated.FlatList
                     data = {firstRecipeSlideItems}
@@ -176,16 +179,10 @@ const Explore = ({navigation}) => {
               </View>
 
               {/* favorites section  */}
-              <View className="bg-white py-6 px-4 rounded-xl">
+              <View className="bg-white py-6 mb-7 px-4 rounded-xl">
 
-                {/* Favorites header  */}
-                <View className="mb-4 flex-row justify-between">
-                  <CustomBoldText className="text-slate-800 font-bold" size={20} title="Favorites collection"/>
-                  <TouchableOpacity onPress={()=> navigateToSearch(navigation, "") } activeOpacity={0.4} className="bg-slate-200 p-3 rounded-full">
-                    <CustomRegularText title="Search more"/>
-                  </TouchableOpacity>
-                 
-                </View>
+                {/* section header header  */}
+                <SectionHeader title="Favorites collection" navigation={navigation} navigateToSearch={navigateToSearch}/>
 
                 {/* favorites items  */}
                 <FlatList
@@ -199,14 +196,36 @@ const Explore = ({navigation}) => {
                     }}
                   />
               </View>
+
+              {/* Date and time section  */}
+              <View className="bg-white py-6 px-4 rounded-xl">
+
+                {/* section header header  */}
+                <SectionHeader title="Meal time" navigation={navigation} navigateToSearch={navigateToSearch}/>
+                <FlatList
+                  className="pb-3"
+                  data={MealTime}
+                  keyExtractor={item => item.id}
+                  horizontal
+                  renderItem={({item, index}) => {
+                   return (
+                    <SelectTime navigation={navigation} navigateToSearch={navigateToSearch} item={item}/>
+                   )
+                  }}
+                />
+               
+              </View>
+              
             </View>: 
 
             // when the explore page is loading 
             <ShimmerHomeProgress/>
           }
           
+          <View className="pb-56" ></View>
         </ScrollView>
 
+        
     </View>
     
   )
