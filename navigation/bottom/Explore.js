@@ -88,8 +88,8 @@ const Explore = ({navigation}) => {
     let formData = new FormData();
     formData.append("query", RandomRecipe);
     formData.append("count", "5");
-    // const requestUrl = "https://nursinggator.com/recipe/recipe.json";
-    const requestUrl = "https://recipe-scrap.vercel.app/Ii8LhnECbHEMXZWFReHh";
+    const requestUrl = "https://nursinggator.com/recipe/recipe.json";
+    // const requestUrl = "https://recipe-scrap.vercel.app/Ii8LhnECbHEMXZWFReHh";
 
     // create request options 
     let requestOptions = { method: 'POST', body: formData, redirect: 'follow'};
