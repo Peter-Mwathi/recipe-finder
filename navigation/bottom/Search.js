@@ -87,7 +87,7 @@ const Search = ({route, navigation}) => {
   // Return the search view 
   return (
     <View className="flex-1 justify-center items-center">
-     <Text>Text</Text>
+     <Text>{searchQuery}</Text>
     </View>
   )
 }
